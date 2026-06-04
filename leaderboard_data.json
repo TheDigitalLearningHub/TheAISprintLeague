@@ -1,108 +1,108 @@
 {
-  "generated_at": "04 Jun 2026, 12:59 PM UTC",
+  "generated_at": "04 Jun 2026, 10:48 PM UTC",
   "squad_standings": [
     {
       "rank": 1,
       "squad_num": 7,
       "squad_name": "The Attention Heads",
-      "squad_leader": "Deepshikhar Bhardwaj",
-      "total_pts": 0,
+      "squad_leader": "Harshvardhan Jha",
+      "total_pts": 12.5,
       "member_count": 6,
-      "avg_completion": 26.0,
+      "avg_completion": 40.2,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 12.5
         }
       ]
     },
     {
       "rank": 2,
-      "squad_num": 6,
-      "squad_name": "Leader Squad",
-      "squad_leader": "Sofia Sunam",
-      "total_pts": 0,
-      "member_count": 5,
-      "avg_completion": 11.6,
+      "squad_num": 5,
+      "squad_name": "ApexAI",
+      "squad_leader": "Satyam Kumar Singh",
+      "total_pts": 12.5,
+      "member_count": 4,
+      "avg_completion": 26.2,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 12.5
         }
       ]
     },
     {
       "rank": 3,
-      "squad_num": 2,
-      "squad_name": "AgentSmiths.ai",
-      "squad_leader": "Gogisetty Tarun",
-      "total_pts": 0,
+      "squad_num": 6,
+      "squad_name": "Leader Squad",
+      "squad_leader": "Alok Mathur",
+      "total_pts": 0.0,
       "member_count": 5,
-      "avg_completion": 9.6,
+      "avg_completion": 16.8,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 0.0
         }
       ]
     },
     {
       "rank": 4,
-      "squad_num": 8,
-      "squad_name": "AI Avengers",
-      "squad_leader": "Ashish Kumar",
-      "total_pts": 0,
+      "squad_num": 2,
+      "squad_name": "AgentSmiths.ai",
+      "squad_leader": "Arya Poddar",
+      "total_pts": 0.0,
       "member_count": 5,
-      "avg_completion": 3.6,
+      "avg_completion": 12.6,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 0.0
         }
       ]
     },
     {
       "rank": 5,
-      "squad_num": 4,
-      "squad_name": "The Fantastic 5",
-      "squad_leader": "Aakriti Budhraja",
-      "total_pts": 0,
+      "squad_num": 3,
+      "squad_name": "Ctrl+AI",
+      "squad_leader": "Riya Gupta",
+      "total_pts": 0.0,
       "member_count": 5,
-      "avg_completion": 2.4,
+      "avg_completion": 7.8,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 0.0
         }
       ]
     },
     {
       "rank": 6,
-      "squad_num": 3,
-      "squad_name": "Ctrl+AI",
-      "squad_leader": "Atul Anshuman Singh",
-      "total_pts": 0,
+      "squad_num": 8,
+      "squad_name": "AI Avengers",
+      "squad_leader": "Sowmya Desai",
+      "total_pts": 0.0,
       "member_count": 5,
-      "avg_completion": 1.4,
+      "avg_completion": 3.6,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 0.0
         }
       ]
     },
     {
       "rank": 7,
-      "squad_num": 5,
-      "squad_name": "ApexAI",
-      "squad_leader": "Shreekanya Shreeshail Kodate",
-      "total_pts": 0,
-      "member_count": 4,
-      "avg_completion": 1.2,
+      "squad_num": 4,
+      "squad_name": "The Fantastic 5",
+      "squad_leader": "Nasim Alam",
+      "total_pts": 0.0,
+      "member_count": 5,
+      "avg_completion": 2.4,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 0.0
         }
       ]
     },
@@ -110,14 +110,14 @@
       "rank": 8,
       "squad_num": 1,
       "squad_name": "AI_runners",
-      "squad_leader": "Shaz Akhtar",
-      "total_pts": 0,
+      "squad_leader": "Animesh",
+      "total_pts": 0.0,
       "member_count": 5,
       "avg_completion": 0.0,
       "module_pts": [
         {
           "module_key": "m1",
-          "pts": 0
+          "pts": 0.0
         }
       ]
     }
@@ -130,64 +130,28 @@
       "avg_pct": 100.0
     },
     {
+      "name": "SURYA TEJA TUNUGUNTLA",
+      "squad_name": "ApexAI",
+      "pts": 50,
+      "avg_pct": 100.0
+    },
+    {
       "name": "Vikas",
       "squad_name": "Leader Squad",
       "pts": 0,
-      "avg_pct": 58.0
-    },
-    {
-      "name": "Akanksha Dubey",
-      "squad_name": "AgentSmiths.ai",
-      "pts": 0,
-      "avg_pct": 45.0
-    },
-    {
-      "name": "Bubagra Jamatia",
-      "squad_name": "The Attention Heads",
-      "pts": 0,
-      "avg_pct": 33.0
+      "avg_pct": 84.0
     },
     {
       "name": "Rishabh Sharma",
       "squad_name": "The Attention Heads",
       "pts": 0,
-      "avg_pct": 23.0
+      "avg_pct": 71.0
     },
     {
-      "name": "Damini Babbar",
-      "squad_name": "The Fantastic 5",
+      "name": "Bubagra Jamatia",
+      "squad_name": "The Attention Heads",
       "pts": 0,
-      "avg_pct": 12.0
-    },
-    {
-      "name": "Aman Verma",
-      "squad_name": "AI Avengers",
-      "pts": 0,
-      "avg_pct": 9.0
-    },
-    {
-      "name": "Sowmya Desai",
-      "squad_name": "AI Avengers",
-      "pts": 0,
-      "avg_pct": 9.0
-    },
-    {
-      "name": "Raghu Nandan Chilukuri",
-      "squad_name": "Ctrl+AI",
-      "pts": 0,
-      "avg_pct": 7.0
-    },
-    {
-      "name": "Satyam Kumar Singh",
-      "squad_name": "ApexAI",
-      "pts": 0,
-      "avg_pct": 5.0
-    },
-    {
-      "name": "Shubham Dinesh Sureka",
-      "squad_name": "AgentSmiths.ai",
-      "pts": 0,
-      "avg_pct": 3.0
+      "avg_pct": 70.0
     }
   ],
   "module_schedule": [
@@ -200,7 +164,7 @@
     }
   ],
   "ticker": [
-    "🔥 The Attention Heads is dominating with 26.0% completion!",
+    "🔥 The Attention Heads is dominating with 40.2% completion!",
     "⭐ MVP Alert: Harshvardhan Jha from The Attention Heads is leading the charge!",
     "🎯 LIVE NOW: Quest 1 · Deadline to complete is 08 Jun 2026"
   ]
