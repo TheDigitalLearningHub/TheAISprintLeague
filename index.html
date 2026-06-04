@@ -63,6 +63,11 @@
   .subtitle { font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--text-dim); margin-top: 15px; letter-spacing: 2px; line-height: 1.5; }
   .timestamp { color: var(--text-dim); font-size: 10px; margin-top: 20px; font-family: 'Space Mono', monospace; }
 
+  /* Navigation Tabs */
+  .nav-tabs { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; position: relative; z-index: 5; }
+  .tab-btn { background: var(--panel-bg); color: var(--text-dim); border: 1px solid var(--border-dark); padding: 12px 24px; font-family: 'Press Start 2P', monospace; font-size: 10px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); letter-spacing: 1px; }
+  .tab-btn.active, .tab-btn:hover { border-color: var(--airtel-red); color: var(--airtel-red); text-shadow: var(--glow-red); background: rgba(255,0,0,0.05); }
+
   .ticker-wrap { background: var(--panel-bg); border-top: 1px solid var(--border-red); border-bottom: 1px solid var(--border-red); padding: 8px 0; overflow: hidden; position: relative; margin: 0 0 40px; }
   .ticker-label { position: absolute; left: 0; top: 0; bottom: 0; background: var(--airtel-red); color: var(--text-white); font-family: 'Press Start 2P', monospace; font-size: 7px; display: flex; align-items: center; padding: 0 15px; z-index: 2; letter-spacing: 1px; white-space: nowrap; box-shadow: var(--glow-red); }
   .ticker-inner { display: flex; gap: 60px; animation: ticker-scroll 35s linear infinite; padding-left: 140px; white-space: nowrap; }
@@ -70,7 +75,7 @@
   .ticker-item .dot { color: var(--airtel-red); text-shadow: var(--glow-red); font-size: 14px; }
   @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  .section-title { font-family: 'Press Start 2P', monospace; font-size: 11px; letter-spacing: 3px; color: var(--airtel-red); text-shadow: var(--glow-red); margin: 50px 0 20px; display: flex; align-items: center; gap: 15px; }
+  .section-title { font-family: 'Press Start 2P', monospace; font-size: 11px; letter-spacing: 3px; color: var(--airtel-red); text-shadow: var(--glow-red); margin: 50px 0 20px; display: flex; align-items: center; gap: 15px; text-transform: uppercase; }
   .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--airtel-red), transparent); opacity: 0.5; }
 
   .quest-map-container { position: relative; margin: 30px 0 50px; padding: 0 20px; }
@@ -131,6 +136,15 @@
   .state-box { text-align: center; padding: 60px 20px; background: var(--panel-bg); border: 1px solid var(--border-red); color: var(--airtel-red); font-family: 'Press Start 2P', monospace; font-size: 10px; letter-spacing: 2px; text-shadow: var(--glow-red); line-height: 2; margin-top: 40px; position: relative; }
   .loader { display: inline-block; width: 50px; height: 50px; border: 3px solid rgba(255,0,0,0.1); border-top-color: var(--airtel-red); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
 
+  /* Guide Styling */
+  .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 50px; }
+  .guide-card { background: var(--panel-bg); border: 1px solid var(--border-dark); padding: 30px; position: relative; }
+  .guide-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--airtel-red); box-shadow: var(--glow-red); }
+  .guide-card h2 { font-family: 'Orbitron', sans-serif; font-size: 18px; color: var(--text-white); margin-bottom: 20px; letter-spacing: 2px; }
+  .guide-card ul { list-style: none; margin-left: 0; }
+  .guide-card li { margin-bottom: 15px; font-size: 12px; color: var(--text-dim); line-height: 1.6; display: flex; align-items: flex-start; gap: 10px; }
+  .guide-card li::before { content: '>'; color: var(--airtel-red); font-family: 'Press Start 2P', monospace; font-size: 10px; margin-top: 2px; flex-shrink: 0; }
+
   @media(max-width: 768px) {
     .quest-nodes { flex-direction: column; gap: 30px; }
     .quest-node { width: 100%; display: flex; align-items: center; text-align: left; gap: 20px; }
@@ -138,6 +152,8 @@
     .quest-desc { max-width: none; margin: 0; }
     th, td { padding: 12px 10px; }
     .performer-card:hover { transform: none; }
+    .guide-grid { grid-template-columns: 1fr; }
+    .nav-tabs { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -157,6 +173,11 @@
     <div class="corner-decoration corner-br"></div>
   </div>
 </header>
+
+<div class="nav-tabs container">
+  <button id="tab-dash" class="tab-btn active" onclick="switchTab('dash')">DASHBOARD</button>
+  <button id="tab-guide" class="tab-btn" onclick="switchTab('guide')">QUEST GUIDE</button>
+</div>
 
 <div class="ticker-wrap">
   <div class="ticker-label">> SYS_UPDATES</div>
@@ -182,7 +203,7 @@
     </div>
   </div>
 
-  <!-- DASHBOARD CONTENT -->
+  <!-- DASHBOARD TAB CONTENT -->
   <div id="dashboard-content" style="display: none;">
     
     <!-- QUEST JOURNEY -->
@@ -214,16 +235,124 @@
     </div>
 
   </div>
+
+  <!-- QUEST GUIDE TAB CONTENT -->
+  <div id="guide-content" style="display: none;">
+    <div class="section-title">📖 SYSTEM PROTOCOLS // QUEST GUIDE</div>
+    
+    <div class="guide-grid">
+      
+      <!-- Rules & Scoring -->
+      <div class="guide-card" style="grid-column: 1 / -1;">
+        <h2>RULES & SCORING LOGIC</h2>
+        <ul>
+          <li><strong style="color: var(--text-white);">The Finish Line:</strong> 6 Weeks. 3 Quests. Each Squad has to successfully complete each of these quests to reach the finish line.</li>
+          <li><strong style="color: var(--text-white);">Squad Requirement:</strong> A Quest is ONLY considered 'complete' when the Squad reaches a 100% completion rate (every member finishes).</li>
+          <li><strong style="color: var(--text-white);">Points Base:</strong> 50 XP per module completed on time.</li>
+          <li><strong style="color: var(--text-white);">Speed Bonus:</strong> Bonus 25 XP for finishing in the first 5 days (bonus deadline).</li>
+          <li><strong style="color: var(--text-white);">Calculation Logic:</strong> Each team member gains points individually based on their completion time. The squad's total score is then calculated as the <strong style="color: var(--airtel-red);">AVERAGE</strong> of all members' points.</li>
+        </ul>
+      </div>
+
+      <!-- Quest 1 -->
+      <div class="guide-card" style="grid-column: 1 / -1;">
+        <h2>QUEST 1: DECODE <span style="font-size: 10px; color: var(--text-dim); font-family: 'Space Mono', monospace; text-transform: none;">// Attain knowledge mastery through coursework</span></h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+          <div style="border: 1px solid var(--border-dark); padding: 15px; background: rgba(255,255,255,0.02);">
+            <div style="color: #00f5ff; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; margin-bottom: 5px;">Module 1: AI Foundations & Coding</div>
+            <div style="font-size: 9px; color: var(--text-dim); margin-bottom: 15px; font-family: 'Press Start 2P', monospace;">MAY 29 TO JUNE 8</div>
+            <ul style="margin-left: 0;">
+              <li>Codex/Cursor</li>
+              <li>AI-assisted dev</li>
+              <li>Baseline AI literacy</li>
+            </ul>
+          </div>
+          <div style="border: 1px solid var(--border-dark); padding: 15px; background: rgba(255,255,255,0.02);">
+            <div style="color: #4d4dff; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; margin-bottom: 5px;">Module 2: Advanced AI Model Building</div>
+            <div style="font-size: 9px; color: var(--text-dim); margin-bottom: 15px; font-family: 'Press Start 2P', monospace;">JUNE 8 TO JUNE 18</div>
+            <ul style="margin-left: 0;">
+              <li>Transformers, LLMs</li>
+              <li>Diffusion models</li>
+              <li>Prompt engineering</li>
+            </ul>
+          </div>
+          <div style="border: 1px solid var(--border-dark); padding: 15px; background: rgba(255,255,255,0.02);">
+            <div style="color: #b84dff; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; margin-bottom: 5px;">Module 3: Agentic AI & Workflows</div>
+            <div style="font-size: 9px; color: var(--text-dim); margin-bottom: 15px; font-family: 'Press Start 2P', monospace;">JUNE 19 TO JULY 8</div>
+            <ul style="margin-left: 0;">
+              <li>LangGraph, CrewAI</li>
+              <li>Multi-agent systems</li>
+              <li>Human-in-the-loop</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quest 2 -->
+      <div class="guide-card" style="grid-column: 1 / -1;">
+        <h2>QUEST 2: AMPLIFY KNOWLEDGE <span style="font-size: 10px; color: var(--text-dim); font-family: 'Space Mono', monospace; text-transform: none;">// Teach it to earn it</span></h2>
+        <p style="font-size: 11px; color: var(--text-white); margin-bottom: 20px; font-family: 'Space Mono', monospace;">Complete any ONE activity below to complete this quest for your squad. More upvotes on Teams = additional points.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <div style="border: 1px solid var(--border-dark); padding: 20px; position: relative; background: rgba(255,255,255,0.02);">
+            <div style="position: absolute; top: 15px; right: 15px; color: var(--airtel-red); font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 18px;">50 pts</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-weight: bold; margin-bottom: 10px; color: var(--text-white); font-size: 14px;">👥 Learning Jam</div>
+            <div style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">Host an open session for all participants. Show one workflow or tool live. Simply self-nominate & schedule.</div>
+          </div>
+          <div style="border: 1px solid var(--border-dark); padding: 20px; position: relative; background: rgba(255,255,255,0.02);">
+            <div style="position: absolute; top: 15px; right: 15px; color: var(--airtel-red); font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 18px;">35 pts</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-weight: bold; margin-bottom: 10px; color: var(--text-white); font-size: 14px;">📈 Mini Demo</div>
+            <div style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">5-7 min video/recording showing one workflow or tool you used. Post on the Teams channel.</div>
+          </div>
+          <div style="border: 1px solid var(--border-dark); padding: 20px; position: relative; background: rgba(255,255,255,0.02);">
+            <div style="position: absolute; top: 15px; right: 15px; color: var(--airtel-red); font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 18px;">20 pts</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-weight: bold; margin-bottom: 10px; color: var(--text-white); font-size: 14px;">📝 Cheat Sheet</div>
+            <div style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">1-page doc: prompt patterns, do's & don'ts, examples. Post on the Teams channel.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quest 3 -->
+      <div class="guide-card" style="grid-column: 1 / -1; border-color: #ffaa00;">
+        <h2 style="color: #ffaa00; text-shadow: 0 0 10px rgba(255,170,0,0.4);">🔒 QUEST 3: BUILD WITH AI <span style="font-size: 10px; color: var(--text-dim); font-family: 'Space Mono', monospace; text-transform: none; text-shadow: none;">// The AI War Room</span></h2>
+        <div style="display: inline-block; padding: 5px 10px; border: 1px solid #ffaa00; color: #ffaa00; font-size: 9px; font-family: 'Press Start 2P', monospace; margin-bottom: 20px; background: rgba(255,170,0,0.1);">LOCKED: COMPLETE QUEST 1 & 2 TO UNLOCK</div>
+        <p style="font-size: 12px; color: var(--text-white); margin-bottom: 20px; font-family: 'Space Mono', monospace;">A high-stakes, competitive session — only the teams that earn their way in will get to play.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+          <div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: bold; color: var(--text-dim); margin-bottom: 15px; letter-spacing: 1px;">WHAT AWAITS INSIDE</div>
+            <ul>
+              <li><strong style="color: var(--text-white);">Hands-on sandbox environments:</strong> Real compute. Real tools. Not a demo.</li>
+              <li><strong style="color: var(--text-white);">Fine-tune LLMs & work with Transformers:</strong> Go deep on frontier techniques — live, in the session.</li>
+              <li><strong style="color: var(--text-white);">A real AI challenge to solve:</strong> Squads compete on a live problem. Under the clock.</li>
+            </ul>
+          </div>
+          <div style="background: rgba(255, 170, 0, 0.05); border: 1px solid rgba(255, 170, 0, 0.3); padding: 20px;">
+          <div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: bold; color: #ffaa00; margin-bottom: 15px; letter-spacing: 1px;">🏆 PRIZES AWAIT THE CHAMPIONS</div>
+          <ul style="margin-bottom: 0;">
+            <li>Exclusive recognition — visible to leadership</li>
+            <li>Leaderboard glory</li>
+            <li>Surprise prizes — worth competing for</li>
+          </ul>
+          <div style="margin-top: 15px; font-size: 10px; color: #ffaa00; font-style: italic;">Full details drop when you unlock this stage. Earn it.</div>
+        </div>
+      </div>
+    </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <script>
 const FALLBACK_DATA = {
   "generated_at": "04 Jun 2026, 09:20 AM UTC",
   "squad_standings": [
-    { "rank": 1, "squad_num": 7, "squad_name": "The Attention Heads", "squad_leader": "Harshvardhan Jha", "total_pts": 75, "member_count": 6, "avg_completion": 26.0, "module_pts": [ { "module_key": "m1", "pts": 75 } ] },
-    { "rank": 2, "squad_num": 6, "squad_name": "Leader Squad", "squad_leader": "Vikas", "total_pts": 0, "member_count": 5, "avg_completion": 11.6, "module_pts": [ { "module_key": "m1", "pts": 0 } ] },
-    { "rank": 3, "squad_num": 2, "squad_name": "AgentSmiths.ai", "squad_leader": "Akanksha Dubey", "total_pts": 0, "member_count": 5, "avg_completion": 9.6, "module_pts": [ { "module_key": "m1", "pts": 0 } ] },
-    { "rank": 4, "squad_num": 8, "squad_name": "AI Avengers", "squad_leader": "Aman Verma", "total_pts": 0, "member_count": 5, "avg_completion": 3.6, "module_pts": [ { "module_key": "m1", "pts": 0 } ] }
+    { "rank": 1, "squad_num": 7, "squad_name": "The Attention Heads", "squad_leader": "Harshvardhan Jha", "total_pts": 12.5, "member_count": 6, "avg_completion": 26.0, "module_pts": [ { "module_key": "m1", "pts": 12.5 } ] },
+    { "rank": 2, "squad_num": 6, "squad_name": "Leader Squad", "squad_leader": "Vikas", "total_pts": 0.0, "member_count": 5, "avg_completion": 11.6, "module_pts": [ { "module_key": "m1", "pts": 0.0 } ] },
+    { "rank": 3, "squad_num": 2, "squad_name": "AgentSmiths.ai", "squad_leader": "Akanksha Dubey", "total_pts": 0.0, "member_count": 5, "avg_completion": 9.6, "module_pts": [ { "module_key": "m1", "pts": 0.0 } ] },
+    { "rank": 4, "squad_num": 8, "squad_name": "AI Avengers", "squad_leader": "Aman Verma", "total_pts": 0.0, "member_count": 5, "avg_completion": 3.6, "module_pts": [ { "module_key": "m1", "pts": 0.0 } ] }
   ],
   "top_performers": [
     { "name": "Harshvardhan Jha", "squad_name": "The Attention Heads", "pts": 75, "avg_pct": 100.0 },
@@ -241,10 +370,27 @@ const FALLBACK_DATA = {
   ]
 };
 
+function switchTab(tabId) {
+  document.getElementById('tab-dash').classList.remove('active');
+  document.getElementById('tab-guide').classList.remove('active');
+  
+  document.getElementById('dashboard-content').style.display = 'none';
+  document.getElementById('guide-content').style.display = 'none';
+  
+  if(tabId === 'dash') {
+    document.getElementById('tab-dash').classList.add('active');
+    document.getElementById('dashboard-content').style.display = 'block';
+  } else {
+    document.getElementById('tab-guide').classList.add('active');
+    document.getElementById('guide-content').style.display = 'block';
+  }
+}
+
 function renderUI(data) {
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('error-screen').style.display = 'none';
-  document.getElementById('dashboard-content').style.display = 'block';
+  
+  switchTab('dash'); // Default to dashboard view
 
   document.getElementById('last-updated').innerHTML = `LAST SYNC: ${data.generated_at}`;
 
@@ -274,13 +420,13 @@ function renderUI(data) {
     `;
   }).join('');
 
-  // 3. TABLE HEADERS (Only Quest 1 / Module 1)
+  // 3. TABLE HEADERS (Module 1 label update)
   const headers = document.getElementById('table-headers');
   headers.innerHTML = `
     <th>Rnk</th>
     <th>Squad Data</th>
     <th class="text-center active-col">Quest 1: Decode</th>
-    <th class="text-right">Quest 1 Progress</th>
+    <th class="text-right">Module 1 Progress</th>
     <th class="text-center">Total Pts</th>
   `;
 
@@ -302,9 +448,9 @@ function renderUI(data) {
             <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${barWidth}%;"></div></div>
           </div>
         </td>
-        <td class="score active-col">${m1.pts}</td>
+        <td class="score active-col">${m1.pts.toFixed(1)}</td>
         <td class="score text-right" style="color: var(--text-dim);">${squad.avg_completion.toFixed(1)}%</td>
-        <td class="total-score">${squad.total_pts}</td>
+        <td class="total-score">${squad.total_pts.toFixed(1)}</td>
       </tr>
     `;
   }).join('');
