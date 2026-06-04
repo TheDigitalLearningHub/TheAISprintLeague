@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Sprint League — Squad Leaderboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a12; --bg2: #0f0f1e; --bg3: #141428;
+    --cyan: #00f5ff; --magenta: #ff00aa; --yellow: #ffe600;
+    --green: #00ff88; --orange: #ff6b00; --purple: #9b59ff;
+    --white: #e8e8ff; --dim: #5a5a8a; --border: rgba(0,245,255,0.2);
+    --glow-c: 0 0 10px rgba(0,245,255,0.4),0 0 20px rgba(0,245,255,0.1);
+    --glow-m: 0 0 10px rgba(255,0,170,0.4),0 0 20px rgba(255,0,170,0.1);
+    --glow-y: 0 0 10px rgba(255,230,0,0.4),0 0 20px rgba(255,230,0,0.1);
+    --glow-g: 0 0 10px rgba(0,255,136,0.4),0 0 20px rgba(0,255,136,0.1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--white);font-family:'Space Mono',monospace;min-height:100vh;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,245,255,0.03) 39px,rgba(0,245,255,0.03) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,245,255,0.03) 39px,rgba(0,245,255,0.03) 40px);pointer-events:none;z-index:0}
+  body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.15) 0px,rgba(0,0,0,0.15) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:999;opacity:.4}
+  .container{max-width:1280px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+
+  /* HEADER */
+  header{text-align:center;padding:48px 20px 32px;position:relative}
+  .header-badge{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:var(--cyan);border:1px solid var(--cyan);padding:6px 14px;margin-bottom:20px;letter-spacing:3px;text-shadow:var(--glow-c);box-shadow:var(--glow-c);animation:pulse-border 2s ease-in-out infinite}
+  @keyframes pulse-border{0%,100%{opacity:1}50%{opacity:.6}}
+  h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(28px,6vw,64px);letter-spacing:4px;line-height:1.1;color:var(--white);text-shadow:0 0 30px rgba(0,245,255,.5),0 0 60px rgba(0,245,255,.2)}
+  h1 .cyan{color:var(--cyan)} h1 .mag{color:var(--magenta);text-shadow:0 0 30px rgba(255,0,170,.5)}
+  .header-sub{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--dim);margin-top:12px;letter-spacing:2px}
+  .live-dot{display:inline-flex;align-items:center;gap:8px;font-family:'Press Start 2P',monospace;font-size:7px;color:var(--green);margin-top:14px;text-shadow:var(--glow-g)}
+  .live-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 1s step-end infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  .last-updated{font-size:10px;color:var(--dim);margin-top:6px}
+  .corner-decoration{position:absolute;width:16px;height:16px;border-color:var(--cyan);border-style:solid;opacity:.5}
+  .corner-tl{top:0;left:0;border-width:2px 0 0 2px} .corner-tr{top:0;right:0;border-width:2px 2px 0 0}
+  .corner-bl{bottom:0;left:0;border-width:0 0 2px 2px} .corner-br{bottom:0;right:0;border-width:0 2px 2px 0}
+
+  /* TICKER */
+  .ticker-wrap{background:var(--bg2);border-top:1px solid rgba(0,245,255,.2);border-bottom:1px solid rgba(0,245,255,.2);padding:8px 0;overflow:hidden;margin:0 0 32px;position:relative}
+  .ticker-label{position:absolute;left:0;top:0;bottom:0;background:var(--cyan);color:var(--bg);font-family:'Press Start 2P',monospace;font-size:7px;display:flex;align-items:center;padding:0 12px;z-index:2;letter-spacing:1px;white-space:nowrap}
+  .ticker-inner{display:flex;gap:60px;animation:ticker-scroll 35s linear infinite;padding-left:120px;white-space:nowrap}
+  .ticker-item{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);display:inline-flex;align-items:center;gap:6px}
+  .ticker-item .dot{color:var(--cyan)}
+  @keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:32px 0}
+  .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:16px;text-align:center;position:relative;overflow:hidden;transition:transform .2s}
+  .stat-card:hover{transform:translateY(-3px)}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .stat-card.c{border-color:rgba(0,245,255,.3)} .stat-card.c::before{background:var(--cyan);box-shadow:var(--glow-c)}
+  .stat-card.g{border-color:rgba(0,255,136,.3)} .stat-card.g::before{background:var(--green);box-shadow:var(--glow-g)}
+  .stat-card.m{border-color:rgba(255,0,170,.3)} .stat-card.m::before{background:var(--magenta);box-shadow:var(--glow-m)}
+  .stat-card.o{border-color:rgba(255,107,0,.3)} .stat-card.o::before{background:var(--orange)}
+  .stat-card.y{border-color:rgba(255,230,0,.3)} .stat-card.y::before{background:var(--yellow);box-shadow:var(--glow-y)}
+  .stat-card.p{border-color:rgba(155,89,255,.3)} .stat-card.p::before{background:var(--purple)}
+  .stat-icon{font-size:20px;margin-bottom:6px}
+  .stat-val{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;line-height:1;margin-bottom:4px}
+  .stat-card.c .stat-val{color:var(--cyan);text-shadow:var(--glow-c)} .stat-card.g .stat-val{color:var(--green);text-shadow:var(--glow-g)}
+  .stat-card.m .stat-val{color:var(--magenta);text-shadow:var(--glow-m)} .stat-card.o .stat-val{color:var(--orange)}
+  .stat-card.y .stat-val{color:var(--yellow);text-shadow:var(--glow-y)} .stat-card.p .stat-val{color:var(--purple)}
+  .stat-label{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--dim);letter-spacing:1px;line-height:1.6}
+
+  /* SECTION TITLE */
+  .section-title{font-family:'Press Start 2P',monospace;font-size:11px;letter-spacing:3px;color:var(--cyan);text-shadow:var(--glow-c);margin:40px 0 16px;display:flex;align-items:center;gap:12px}
+  .section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,255,.4),transparent)}
+
+  /* TABS */
+  .tab-bar{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+  .tab-btn{font-family:'Press Start 2P',monospace;font-size:7px;padding:8px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;color:var(--dim);cursor:pointer;letter-spacing:1px;transition:all .15s}
+  .tab-btn:hover{border-color:rgba(0,245,255,.4);color:var(--cyan)}
+  .tab-btn.active{background:rgba(0,245,255,.1);border-color:var(--cyan);color:var(--cyan);text-shadow:var(--glow-c);box-shadow:var(--glow-c)}
+  .tab-content{display:none} .tab-content.active{display:block}
+
+  /* SQUAD TABLE */
+  .squad-row{display:grid;grid-template-columns:48px 1fr 80px 80px 80px 80px 100px;align-items:center;padding:12px 16px;border:1px solid var(--border);border-radius:4px;margin-bottom:8px;background:var(--bg2);cursor:default;transition:all .2s;position:relative;overflow:hidden}
+  .squad-row:not(.header-row):hover{background:var(--bg3);border-color:rgba(0,245,255,.5);transform:translateX(4px)}
+  .squad-row.rank-1{border-color:rgba(255,230,0,.5);background:rgba(255,230,0,.04)}
+  .squad-row.rank-1 .rank-num{color:var(--yellow);text-shadow:var(--glow-y)}
+  .squad-row.rank-2 .rank-num{color:var(--cyan)}
+  .squad-row.rank-3 .rank-num{color:var(--magenta)}
+  .squad-row.header-row{background:transparent;border:none;font-family:'Press Start 2P',monospace;font-size:7px;color:var(--dim);letter-spacing:1px;cursor:default;margin-bottom:4px}
+  .squad-row.header-row:hover{transform:none;background:transparent}
+  .rank-num{font-family:'Orbitron',sans-serif;font-weight:900;font-size:18px;color:var(--dim);text-align:center}
+  .squad-name-cell{display:flex;align-items:center;gap:10px}
+  .squad-avatar{width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1px solid rgba(255,255,255,.1)}
+  .squad-name{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px}
+  .squad-members{font-size:10px;color:var(--dim);margin-top:2px}
+  .score-cell{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;text-align:center}
+  .total-score{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;text-align:center;color:var(--yellow);text-shadow:var(--glow-y)}
+  .progress-bar-wrap{background:rgba(255,255,255,.05);height:4px;border-radius:2px;margin-top:4px;overflow:hidden}
+  .progress-bar{height:100%;border-radius:2px;transition:width 1s ease}
+
+  /* MODULE CARDS */
+  .quest-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:32px}
+  .quest-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px;position:relative;overflow:hidden}
+  .quest-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px}
+  .quest-card.q1::before{background:linear-gradient(90deg,var(--cyan),var(--purple))}
+  .quest-card.q2::before{background:linear-gradient(90deg,var(--magenta),var(--orange))}
+  .quest-card.q3::before{background:linear-gradient(90deg,var(--yellow),var(--green))}
+  .quest-num{font-family:'Press Start 2P',monospace;font-size:7px;letter-spacing:2px;margin-bottom:8px}
+  .quest-card.q1 .quest-num{color:var(--cyan)} .quest-card.q2 .quest-num{color:var(--magenta)} .quest-card.q3 .quest-num{color:var(--yellow)}
+  .quest-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px}
+  .mini-squad-prog{margin-top:8px}
+  .msq-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:10px}
+  .msq-name{width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:'Press Start 2P',monospace;font-size:7px;color:var(--dim)}
+  .msq-bar-wrap{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+  .msq-bar{height:100%;border-radius:3px}
+  .msq-pts{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;min-width:36px;text-align:right;color:var(--yellow)}
+  .module-status-badge{display:inline-block;font-family:'Press Start 2P',monospace;font-size:6px;padding:3px 8px;border-radius:2px;margin-bottom:10px}
+  .status-active{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.3)}
+  .status-done{background:rgba(0,245,255,.1);color:var(--cyan);border:1px solid rgba(0,245,255,.2)}
+  .status-upcoming{background:rgba(90,90,138,.2);color:var(--dim);border:1px solid rgba(90,90,138,.3)}
+  .module-dates{font-size:9px;color:var(--dim);line-height:2;margin-bottom:12px}
+  .module-dates span{color:var(--white)}
+
+  /* STREAKS */
+  .streaks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:24px}
+  .streak-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:14px;display:flex;align-items:center;gap:12px;transition:all .2s}
+  .streak-card:hover{border-color:rgba(255,107,0,.5)}
+  .streak-card.on-fire{border-color:rgba(255,107,0,.5);background:rgba(255,107,0,.05)}
+  .streak-avatar{width:42px;height:42px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:2px solid rgba(255,107,0,.3);position:relative}
+  .streak-card.on-fire .streak-avatar{border-color:var(--orange);box-shadow:0 0 12px rgba(255,107,0,.4)}
+  .streak-fire{position:absolute;top:-6px;right:-4px;font-size:14px;animation:fire-flicker .5s ease-in-out infinite alternate}
+  @keyframes fire-flicker{from{transform:scale(1) rotate(-5deg)}to{transform:scale(1.2) rotate(5deg)}}
+  .streak-name{font-family:'Space Mono',monospace;font-size:11px;font-weight:700}
+  .streak-squad{font-size:9px;color:var(--dim);margin-top:2px}
+  .streak-days{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--orange);margin-left:auto;flex-shrink:0}
+  .streak-days span{font-size:9px;color:var(--dim);display:block;text-align:center;font-family:'Press Start 2P',monospace}
+
+  /* INDIVIDUAL TABLE */
+  .ind-row{display:grid;grid-template-columns:40px 1fr 90px 90px 80px;align-items:center;padding:10px 14px;border:1px solid var(--border);border-radius:3px;margin-bottom:6px;background:var(--bg2);transition:all .2s}
+  .ind-row:not(.header-row):hover{background:var(--bg3);border-color:rgba(0,245,255,.4)}
+  .ind-row.header-row{background:transparent;border:none;font-family:'Press Start 2P',monospace;font-size:6px;color:var(--dim);letter-spacing:1px}
+  .ind-rank{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--dim);text-align:center}
+  .top3{color:var(--yellow);text-shadow:var(--glow-y)}
+  .ind-name-cell{display:flex;align-items:center;gap:8px}
+  .ind-avatar{width:28px;height:28px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;border:1px solid rgba(255,255,255,.1)}
+  .ind-name{font-size:11px;font-family:'Space Mono',monospace}
+  .ind-squad-chip{font-family:'Press Start 2P',monospace;font-size:6px;padding:2px 5px;border-radius:2px;background:rgba(0,245,255,.1);color:var(--cyan);border:1px solid rgba(0,245,255,.2);margin-top:2px;display:inline-block}
+  .modules-done{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--purple);text-align:center}
+  .hrs-done{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--cyan);text-align:center}
+  .ind-pts{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;color:var(--yellow);text-align:center}
+
+  /* POINTS LEGEND */
+  .legend-row{display:flex;align-items:center;gap:12px;padding:10px;background:var(--bg3);border-radius:3px;border:1px solid var(--border);margin-bottom:8px}
+  .legend-icon{font-size:20px}
+  .legend-title{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--cyan)}
+  .legend-desc{font-size:10px;color:var(--dim);margin-top:4px}
+  .legend-pts{margin-left:auto;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:var(--yellow)}
+
+  /* EMPTY STATE */
+  .empty-state{text-align:center;padding:40px;color:var(--dim);font-family:'Press Start 2P',monospace;font-size:9px;line-height:2}
+
+  /* FOOTER */
+  footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px}
+  footer p{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--dim);line-height:2;letter-spacing:1px}
+  .footer-logo{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:var(--cyan);letter-spacing:4px;margin-bottom:12px;text-shadow:var(--glow-c)}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .squad-row{grid-template-columns:36px 1fr 70px 90px}
+    .squad-row .q1-pts,.squad-row .q2-pts,.squad-row .q3-pts{display:none}
+    .ind-row{grid-template-columns:32px 1fr 70px 70px}
+    .ind-row .hrs-col{display:none}
+  }
+  @media(max-width:500px){.squad-row{grid-template-columns:36px 1fr 90px}}
+
+  .animate-in{animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+  /* LOADING */
+  #loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:'Press Start 2P',monospace}
+  #loading-screen .load-title{font-size:14px;color:var(--cyan);text-shadow:var(--glow-c);margin-bottom:20px;letter-spacing:3px}
+  #loading-screen .load-bar-wrap{width:280px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+  #loading-screen .load-bar{height:100%;background:var(--cyan);width:0;animation:loading-fill .8s ease forwards}
+  @keyframes loading-fill{to{width:100%}}
+  #loading-screen .load-sub{font-size:7px;color:var(--dim);margin-top:12px;letter-spacing:2px}
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="load-title">AI SPRINT LEAGUE</div>
+  <div class="load-bar-wrap"><div class="load-bar"></div></div>
+  <div class="load-sub">LOADING LEADERBOARD DATA...</div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="corner-decoration corner-tl"></div>
+    <div class="corner-decoration corner-tr"></div>
+    <div class="header-badge">SEASON 1 · 2026</div>
+    <h1><span class="cyan">AI</span> SPRINT <span class="mag">LEAGUE</span></h1>
+    <p class="header-sub">AIRTEL — AI UPSKILLING CHAMPIONSHIP</p>
+    <div class="live-dot">LIVE SCORES</div>
+    <p class="last-updated" id="last-updated">Loading...</p>
+    <div class="corner-decoration corner-bl"></div>
+    <div class="corner-decoration corner-br"></div>
+  </div>
+</header>
+
+<div class="ticker-wrap">
+  <div class="ticker-label">UPDATES</div>
+  <div class="ticker-inner" id="ticker-inner"></div>
+</div>
+
+<div class="container">
+
+  <!-- GLOBAL STATS -->
+  <div class="stats-grid animate-in">
+    <div class="stat-card c"><div class="stat-icon">⏱</div><div class="stat-val" id="stat-hrs">—</div><div class="stat-label">TOTAL<br>LEARNING HRS</div></div>
+    <div class="stat-card g"><div class="stat-icon">✓</div><div class="stat-val" id="stat-modules">—</div><div class="stat-label">MODULES<br>COMPLETED</div></div>
+    <div class="stat-card m"><div class="stat-icon">👥</div><div class="stat-val" id="stat-participants">—</div><div class="stat-label">TOTAL<br>PARTICIPANTS</div></div>
+    <div class="stat-card o"><div class="stat-icon">🔥</div><div class="stat-val" id="stat-streaks">—</div><div class="stat-label">ACTIVE<br>STREAKERS</div></div>
+    <div class="stat-card y"><div class="stat-icon">🏆</div><div class="stat-val" id="stat-points">—</div><div class="stat-label">TOTAL<br>POINTS EARNED</div></div>
+    <div class="stat-card p"><div class="stat-icon">🎯</div><div class="stat-val" id="stat-squads">—</div><div class="stat-label">SQUADS<br>COMPETING</div></div>
+  </div>
+
+  <!-- SQUAD LEADERBOARD -->
+  <div class="section-title">🏆 SQUAD STANDINGS</div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('all',this)">ALL MODULES</button>
+    <button class="tab-btn" onclick="switchTab('q1',this)">MODULE 1</button>
+    <button class="tab-btn" onclick="switchTab('q2',this)">MODULE 2</button>
+    <button class="tab-btn" onclick="switchTab('q3',this)">MODULE 3</button>
+  </div>
+
+  <!-- ALL TAB -->
+  <div id="tab-all" class="tab-content active">
+    <div class="squad-row header-row">
+      <div>#</div><div>SQUAD</div>
+      <div style="text-align:center">M1 PTS</div>
+      <div style="text-align:center">M2 PTS</div>
+      <div style="text-align:center">M3 PTS</div>
+      <div style="text-align:center">AVG %</div>
+      <div style="text-align:center">TOTAL</div>
+    </div>
+    <div id="squad-rows-all"></div>
+  </div>
+
+  <!-- MODULE TABS -->
+  <div id="tab-q1" class="tab-content"><div id="module-view-1"></div></div>
+  <div id="tab-q2" class="tab-content"><div id="module-view-2"></div></div>
+  <div id="tab-q3" class="tab-content"><div id="module-view-3"></div></div>
+
+  <!-- HOT STREAKS -->
+  <div class="section-title">🔥 HOT STREAKS · MOST ACTIVE LEARNERS</div>
+  <div class="streaks-grid" id="streaks-grid"></div>
+
+  <!-- INDIVIDUAL LEADERBOARD -->
+  <div class="section-title">👾 INDIVIDUAL RANKINGS</div>
+  <div>
+    <div class="ind-row header-row">
+      <div>#</div><div>PLAYER</div>
+      <div style="text-align:center">MODULES</div>
+      <div style="text-align:center">HRS</div>
+      <div style="text-align:center">PTS</div>
+    </div>
+    <div id="ind-rows"></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">AI SPRINT LEAGUE</div>
+    <p>AIRTEL AI UPSKILLING CHAMPIONSHIP · SEASON 1 · 2026</p>
+    <p style="margin-top:8px">SCORES UPDATE EVERY FEW DAYS · POWERED BY DEGREED</p>
+    <p style="margin-top:8px;font-size:6px">DATA SOURCE: DEGREED LMS · BUILT FOR AIRTEL L&D</p>
+  </div>
+</footer>
+
+<script>
+// ─── COLOUR HELPERS ───────────────────────────────────────────────────────────
+const MODULE_COLORS = ['var(--cyan)', 'var(--magenta)', 'var(--green)'];
+const RANK_COLORS   = { 1:'var(--yellow)', 2:'var(--cyan)', 3:'var(--magenta)' };
+const EMOJIS_POOL   = ['👨‍💻','👩‍💻','🧑‍🔬','👨‍🔬','👩‍🔬','🧑‍💻','🧑‍🎓','👨‍🎓','👩‍🎓','🧑‍🏫'];
+function nameEmoji(name) {
+  let h = 0;
+  for (const c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffffffff;
+  return EMOJIS_POOL[Math.abs(h) % EMOJIS_POOL.length];
+}
+
+// ─── COUNTER ANIMATION ───────────────────────────────────────────────────────
+function animateCount(el, target, suffix = '') {
+  let cur = 0;
+  const step = Math.max(1, Math.ceil(target / 50));
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur.toLocaleString() + suffix;
+    if (cur >= target) clearInterval(t);
+  }, 25);
+}
+
+// ─── SQUAD ROWS ───────────────────────────────────────────────────────────────
+function renderSquadRows(squads) {
+  const container = document.getElementById('squad-rows-all');
+  container.innerHTML = '';
+
+  squads.forEach((s, i) => {
+    const rankClass = i < 3 ? ` rank-${i+1}` : '';
+    const rankLabel = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : s.rank;
+    const m1 = s.module_pts[0] || {};
+    const m2 = s.module_pts[1] || {};
+    const m3 = s.module_pts[2] || {};
+    const hexColor = s.color;
+    const alphaBg  = hexColor + '15';
+    const alphaBdr = hexColor + '40';
+
+    const row = document.createElement('div');
+    row.className = `squad-row${rankClass}`;
+    row.innerHTML = `
+      <div class="rank-num">${rankLabel}</div>
+      <div class="squad-name-cell">
+        <div class="squad-avatar" style="background:${alphaBg};border-color:${alphaBdr}">${s.emoji}</div>
+        <div>
+          <div class="squad-name" style="color:${hexColor}">${s.squad_name}</div>
+          <div class="squad-members">${s.member_count} members · avg ${s.avg_completion}% done</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar" style="width:${s.progress_pct}%;background:${hexColor}"></div>
+          </div>
+        </div>
+      </div>
+      <div class="score-cell q1-pts" style="color:${MODULE_COLORS[0]}">${m1.pts ?? 0}</div>
+      <div class="score-cell q2-pts" style="color:${MODULE_COLORS[1]}">${m2.pts ?? 0}</div>
+      <div class="score-cell q3-pts" style="color:${MODULE_COLORS[2]}">${m3.pts ?? 0}</div>
+      <div class="score-cell" style="color:var(--orange)">${s.avg_completion}%</div>
+      <div class="total-score">${s.total_pts}</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ─── MODULE VIEWS ────────────────────────────────────────────────────────────
+function renderModuleView(modIndex, squads, schedule) {
+  const container = document.getElementById(`module-view-${modIndex + 1}`);
+  if (!container) return;
+  const mod   = schedule[modIndex];
+  const qCls  = `q${modIndex + 1}`;
+  const statusBadge = `<span class="module-status-badge status-${mod.status}">${mod.status.toUpperCase()}</span>`;
+
+  const maxPts = squads.reduce((mx, s) => Math.max(mx, (s.module_pts[modIndex]?.pts || 0)), 1);
+
+  const squadBars = squads.map(s => {
+    const mp   = s.module_pts[modIndex] || {};
+    const pts  = mp.pts || 0;
+    const pct  = mp.avg_pct || 0;
+    const done = mp.members_done || 0;
+    const barW = maxPts > 0 ? Math.round(pts / maxPts * 100) : 0;
+    return `
+      <div class="msq-row">
+        <div class="msq-name">${s.squad_name}</div>
+        <div class="msq-bar-wrap"><div class="msq-bar" style="width:${barW}%;background:${s.color}"></div></div>
+        <div style="font-size:9px;color:var(--dim);min-width:60px;text-align:right">${done}/${s.member_count} done</div>
+        <div class="msq-pts">${pts}</div>
+      </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="quest-grid">
+      <div class="quest-card ${qCls}">
+        <div class="quest-num">MODULE ${modIndex + 1}</div>
+        ${statusBadge}
+        <div class="quest-title">${mod.title}</div>
+        <div class="module-dates">
+          Start: <span>${mod.start}</span> &nbsp;|&nbsp;
+          Bonus Deadline: <span>${mod.bonus_deadline}</span> &nbsp;|&nbsp;
+          Deadline: <span>${mod.deadline}</span>
+        </div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:7px;color:var(--dim);margin-bottom:10px">SQUAD PROGRESS</div>
+        <div class="mini-squad-prog">${squadBars}</div>
+      </div>
+      <div class="quest-card ${qCls}" style="border-color:rgba(0,245,255,.15)">
+        <div class="quest-num">POINTS LEGEND</div>
+        <div class="quest-title" style="font-size:11px;margin-bottom:16px">How to earn points</div>
+        <div class="legend-row">
+          <div class="legend-icon">✅</div>
+          <div><div class="legend-title">ON-TIME COMPLETION</div><div class="legend-desc">Complete by ${mod.deadline}</div></div>
+          <div class="legend-pts">+${mod.points}</div>
+        </div>
+        <div class="legend-row">
+          <div class="legend-icon">⚡</div>
+          <div><div class="legend-title" style="color:var(--orange)">EARLY BIRD BONUS</div><div class="legend-desc">Complete by ${mod.bonus_deadline}</div></div>
+          <div class="legend-pts">+${mod.bonus_points}</div>
+        </div>
+        <div style="padding:10px;background:rgba(255,230,0,.05);border-radius:3px;border:1px solid rgba(255,230,0,.2);margin-top:8px">
+          <div style="font-family:'Press Start 2P',monospace;font-size:7px;color:var(--yellow)">MAX PER MEMBER: ${mod.points + mod.bonus_points} PTS</div>
+          <div style="font-size:10px;color:var(--dim);margin-top:4px">Complete early for the full ${mod.points + mod.bonus_points} pts haul</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─── STREAKS ─────────────────────────────────────────────────────────────────
+function renderStreaks(streaks) {
+  const container = document.getElementById('streaks-grid');
+  container.innerHTML = '';
+
+  if (!streaks.length) {
+    container.innerHTML = '<div class="empty-state">No streak data yet · Keep learning! 🔥</div>';
+    return;
+  }
+
+  streaks.forEach(s => {
+    const fire = s.on_fire ? '<span class="streak-fire">🔥</span>' : '';
+    const card = document.createElement('div');
+    card.className = `streak-card${s.on_fire ? ' on-fire' : ''}`;
+    card.innerHTML = `
+      <div class="streak-avatar">${nameEmoji(s.name)}${fire}</div>
+      <div>
+        <div class="streak-name">${s.name}</div>
+        <div class="streak-squad">${s.squad_name}</div>
+      </div>
+      <div class="streak-days" style="color:${s.on_fire ? 'var(--orange)' : s.color}">
+        ${s.activity_days}<span>DAYS</span>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+// ─── INDIVIDUAL RANKINGS ─────────────────────────────────────────────────────
+function renderIndividuals(players, totalModules) {
+  const container = document.getElementById('ind-rows');
+  container.innerHTML = '';
+
+  players.forEach(p => {
+    const medals = ['🥇','🥈','🥉'];
+    const rankLabel = p.rank <= 3 ? medals[p.rank - 1] : p.rank;
+    const rankClass = p.rank <= 3 ? 'top3' : '';
+    const hexColor  = p.color;
+
+    const div = document.createElement('div');
+    div.className = 'ind-row';
+    div.innerHTML = `
+      <div class="ind-rank ${rankClass}">${rankLabel}</div>
+      <div class="ind-name-cell">
+        <div class="ind-avatar">${nameEmoji(p.name)}</div>
+        <div>
+          <div class="ind-name">${p.name}</div>
+          <span class="ind-squad-chip" style="color:${hexColor};border-color:${hexColor}40;background:${hexColor}12">${p.squad_name}</span>
+        </div>
+      </div>
+      <div class="modules-done">${p.modules_completed}/${totalModules}</div>
+      <div class="hrs-done hrs-col">${p.total_video_hrs}h</div>
+      <div class="ind-pts">${p.total_pts}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// ─── TICKER ───────────────────────────────────────────────────────────────────
+function renderTicker(items) {
+  const inner = document.getElementById('ticker-inner');
+  // Duplicate for seamless loop
+  const all = [...items, ...items];
+  inner.innerHTML = all.map(t =>
+    `<span class="ticker-item"><span class="dot">▶</span> ${t}</span>`
+  ).join('');
+}
+
+// ─── TAB SWITCHING ────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ─── MAIN: FETCH & RENDER ─────────────────────────────────────────────────────
+async function init() {
+  let data;
+  try {
+    const resp = await fetch('leaderboard_data.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    data = await resp.json();
+  } catch (err) {
+    document.getElementById('loading-screen').innerHTML = `
+      <div style="font-family:'Press Start 2P',monospace;color:var(--magenta);text-align:center;padding:20px">
+        <div style="font-size:12px;margin-bottom:16px">⚠ DATA NOT FOUND</div>
+        <div style="font-size:8px;color:var(--dim);line-height:2">
+          Make sure leaderboard_data.json<br>is in the same folder as index.html<br><br>
+          Run: python generate_leaderboard.py
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Hide loading screen
+  document.getElementById('loading-screen').style.display = 'none';
+
+  // Populate last updated
+  document.getElementById('last-updated').textContent = 'Last updated: ' + data.generated_at;
+
+  // Stats with counter animation
+  setTimeout(() => {
+    animateCount(document.getElementById('stat-hrs'),          Math.round(data.stats.total_video_hrs));
+    animateCount(document.getElementById('stat-modules'),      data.stats.total_completions);
+    animateCount(document.getElementById('stat-participants'), data.stats.total_participants);
+    animateCount(document.getElementById('stat-streaks'),      data.stats.active_streakers);
+    animateCount(document.getElementById('stat-points'),       data.stats.total_pts);
+    animateCount(document.getElementById('stat-squads'),       data.squad_standings.length);
+  }, 300);
+
+  // Render all sections
+  renderTicker(data.ticker);
+  renderSquadRows(data.squad_standings);
+  data.module_schedule.forEach((_, i) =>
+    renderModuleView(i, data.squad_standings, data.module_schedule)
+  );
+  renderStreaks(data.streaks);
+  renderIndividuals(data.individual_rankings, data.stats.modules_count);
+}
+
+init();
+</script>
+</body>
+</html>
