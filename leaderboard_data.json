@@ -1,5 +1,5 @@
 {
-  "generated_at": "15 Jun 2026, 11:03 AM IST",
+  "generated_at": "16 Jun 2026, 02:43 PM IST",
   "active_modules": [
     "m1",
     "m2"
@@ -22,7 +22,7 @@
         {
           "module_key": "m2",
           "pts": 25.0,
-          "avg_pct": 41.3
+          "avg_pct": 43.0
         }
       ]
     },
@@ -43,7 +43,7 @@
         {
           "module_key": "m2",
           "pts": 18.8,
-          "avg_pct": 52.0
+          "avg_pct": 56.2
         }
       ]
     },
@@ -52,19 +52,19 @@
       "squad_num": 2,
       "squad_name": "AgentSmiths.ai",
       "squad_leader": "Arya Poddar",
-      "total_pts": 45.0,
+      "total_pts": 55.0,
       "member_count": 5,
-      "avg_completion": 75.8,
+      "avg_completion": 78.6,
       "module_data": [
         {
           "module_key": "m1",
           "pts": 30.0,
-          "avg_pct": 75.8
+          "avg_pct": 78.6
         },
         {
           "module_key": "m2",
-          "pts": 15.0,
-          "avg_pct": 34.2
+          "pts": 25.0,
+          "avg_pct": 51.0
         }
       ]
     },
@@ -91,6 +91,27 @@
     },
     {
       "rank": 5,
+      "squad_num": 3,
+      "squad_name": "Ctrl+AI",
+      "squad_leader": "Riya Gupta",
+      "total_pts": 35.0,
+      "member_count": 5,
+      "avg_completion": 78.4,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pts": 20.0,
+          "avg_pct": 78.4
+        },
+        {
+          "module_key": "m2",
+          "pts": 15.0,
+          "avg_pct": 46.2
+        }
+      ]
+    },
+    {
+      "rank": 6,
       "squad_num": 6,
       "squad_name": "Leader Squad",
       "squad_leader": "Alok Mathur",
@@ -106,28 +127,7 @@
         {
           "module_key": "m2",
           "pts": 15.0,
-          "avg_pct": 30.0
-        }
-      ]
-    },
-    {
-      "rank": 6,
-      "squad_num": 3,
-      "squad_name": "Ctrl+AI",
-      "squad_leader": "Riya Gupta",
-      "total_pts": 35.0,
-      "member_count": 5,
-      "avg_completion": 62.6,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pts": 20.0,
-          "avg_pct": 62.6
-        },
-        {
-          "module_key": "m2",
-          "pts": 15.0,
-          "avg_pct": 46.2
+          "avg_pct": 36.2
         }
       ]
     },
@@ -148,7 +148,7 @@
         {
           "module_key": "m2",
           "pts": 15.0,
-          "avg_pct": 28.4
+          "avg_pct": 29.4
         }
       ]
     },
@@ -169,7 +169,7 @@
         {
           "module_key": "m2",
           "pts": 0.0,
-          "avg_pct": 2.4
+          "avg_pct": 4.6
         }
       ]
     }
@@ -324,6 +324,27 @@
     },
     {
       "rank": 8,
+      "name": "Akanksha Dubey",
+      "squad_name": "AgentSmiths.ai",
+      "total_pts": 100.0,
+      "bonus_stars": 0,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pct": 100.0,
+          "pts": 50.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m2",
+          "pct": 100.0,
+          "pts": 50.0,
+          "bonus_star": false
+        }
+      ]
+    },
+    {
+      "rank": 9,
       "name": "Aman Verma",
       "squad_name": "AI Avengers",
       "total_pts": 75.0,
@@ -344,7 +365,7 @@
       ]
     },
     {
-      "rank": 9,
+      "rank": 10,
       "name": "SURYA TEJA TUNUGUNTLA",
       "squad_name": "ApexAI",
       "total_pts": 75.0,
@@ -365,7 +386,7 @@
       ]
     },
     {
-      "rank": 10,
+      "rank": 11,
       "name": "Sofia Sunam",
       "squad_name": "Leader Squad",
       "total_pts": 50.0,
@@ -379,14 +400,14 @@
         },
         {
           "module_key": "m2",
-          "pct": 50.0,
+          "pct": 81.0,
           "pts": 0.0,
           "bonus_star": false
         }
       ]
     },
     {
-      "rank": 11,
+      "rank": 12,
       "name": "Gogisetty Tarun",
       "squad_name": "AgentSmiths.ai",
       "total_pts": 50.0,
@@ -400,14 +421,35 @@
         },
         {
           "module_key": "m2",
-          "pct": 46.0,
+          "pct": 55.0,
           "pts": 0.0,
           "bonus_star": false
         }
       ]
     },
     {
-      "rank": 12,
+      "rank": 13,
+      "name": "Shreekanya Shreeshail Kodate",
+      "squad_name": "ApexAI",
+      "total_pts": 50.0,
+      "bonus_stars": 0,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pct": 100.0,
+          "pts": 50.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m2",
+          "pct": 52.0,
+          "pts": 0.0,
+          "bonus_star": false
+        }
+      ]
+    },
+    {
+      "rank": 14,
       "name": "Ritika Yadav",
       "squad_name": "Ctrl+AI",
       "total_pts": 50.0,
@@ -428,7 +470,7 @@
       ]
     },
     {
-      "rank": 13,
+      "rank": 15,
       "name": "Aakriti Budhraja",
       "squad_name": "The Fantastic 5",
       "total_pts": 50.0,
@@ -449,28 +491,7 @@
       ]
     },
     {
-      "rank": 14,
-      "name": "Shreekanya Shreeshail Kodate",
-      "squad_name": "ApexAI",
-      "total_pts": 50.0,
-      "bonus_stars": 0,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pct": 100.0,
-          "pts": 50.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m2",
-          "pct": 35.0,
-          "pts": 0.0,
-          "bonus_star": false
-        }
-      ]
-    },
-    {
-      "rank": 15,
+      "rank": 16,
       "name": "Sameer Gupta",
       "squad_name": "The Attention Heads",
       "total_pts": 50.0,
@@ -491,30 +512,9 @@
       ]
     },
     {
-      "rank": 16,
+      "rank": 17,
       "name": "Ashish Kumar",
       "squad_name": "AI Avengers",
-      "total_pts": 50.0,
-      "bonus_stars": 0,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pct": 100.0,
-          "pts": 50.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m2",
-          "pct": 25.0,
-          "pts": 0.0,
-          "bonus_star": false
-        }
-      ]
-    },
-    {
-      "rank": 17,
-      "name": "Akanksha Dubey",
-      "squad_name": "AgentSmiths.ai",
       "total_pts": 50.0,
       "bonus_stars": 0,
       "module_data": [
@@ -547,7 +547,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 17.0,
+          "pct": 22.0,
           "pts": 0.0,
           "bonus_star": false
         }
@@ -555,6 +555,27 @@
     },
     {
       "rank": 19,
+      "name": "Mayank Garg",
+      "squad_name": "AI_runners",
+      "total_pts": 50.0,
+      "bonus_stars": 0,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pct": 100.0,
+          "pts": 50.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m2",
+          "pct": 13.0,
+          "pts": 0.0,
+          "bonus_star": false
+        }
+      ]
+    },
+    {
+      "rank": 20,
       "name": "Rishabh Sharma",
       "squad_name": "The Attention Heads",
       "total_pts": 50.0,
@@ -569,27 +590,6 @@
         {
           "module_key": "m2",
           "pct": 10.0,
-          "pts": 0.0,
-          "bonus_star": false
-        }
-      ]
-    },
-    {
-      "rank": 20,
-      "name": "Mayank Garg",
-      "squad_name": "AI_runners",
-      "total_pts": 50.0,
-      "bonus_stars": 0,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pct": 100.0,
-          "pts": 50.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m2",
-          "pct": 2.0,
           "pts": 0.0,
           "bonus_star": false
         }
@@ -639,6 +639,27 @@
     },
     {
       "rank": 23,
+      "name": "Riya Gupta",
+      "squad_name": "Ctrl+AI",
+      "total_pts": 0.0,
+      "bonus_stars": 0,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pct": 85.0,
+          "pts": 0.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m2",
+          "pct": 85.0,
+          "pts": 0.0,
+          "bonus_star": false
+        }
+      ]
+    },
+    {
+      "rank": 24,
       "name": "Prachi Bhatia",
       "squad_name": "Ctrl+AI",
       "total_pts": 0.0,
@@ -659,36 +680,15 @@
       ]
     },
     {
-      "rank": 24,
-      "name": "Riya Gupta",
-      "squad_name": "Ctrl+AI",
-      "total_pts": 0.0,
-      "bonus_stars": 0,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pct": 6.0,
-          "pts": 0.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m2",
-          "pct": 85.0,
-          "pts": 0.0,
-          "bonus_star": false
-        }
-      ]
-    },
-    {
       "rank": 25,
-      "name": "TANAYA MALLIK",
-      "squad_name": "Leader Squad",
+      "name": "Shubham Dinesh Sureka",
+      "squad_name": "AgentSmiths.ai",
       "total_pts": 0.0,
       "bonus_stars": 0,
       "module_data": [
         {
           "module_key": "m1",
-          "pct": 90.0,
+          "pct": 93.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -702,14 +702,14 @@
     },
     {
       "rank": 26,
-      "name": "Shubham Dinesh Sureka",
-      "squad_name": "AgentSmiths.ai",
+      "name": "TANAYA MALLIK",
+      "squad_name": "Leader Squad",
       "total_pts": 0.0,
       "bonus_stars": 0,
       "module_data": [
         {
           "module_key": "m1",
-          "pct": 79.0,
+          "pct": 90.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -736,7 +736,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 10.0,
+          "pct": 20.0,
           "pts": 0.0,
           "bonus_star": false
         }
@@ -849,8 +849,8 @@
     },
     {
       "rank": 33,
-      "name": "Shaz Akhtar",
-      "squad_name": "AI_runners",
+      "name": "Alok Mathur",
+      "squad_name": "Leader Squad",
       "total_pts": 0.0,
       "bonus_stars": 0,
       "module_data": [
@@ -933,6 +933,27 @@
     },
     {
       "rank": 37,
+      "name": "Shaz Akhtar",
+      "squad_name": "AI_runners",
+      "total_pts": 0.0,
+      "bonus_stars": 0,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pct": 0.0,
+          "pts": 0.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m2",
+          "pct": 0.0,
+          "pts": 0.0,
+          "bonus_star": false
+        }
+      ]
+    },
+    {
+      "rank": 38,
       "name": "Nasim Alam",
       "squad_name": "The Fantastic 5",
       "total_pts": 0.0,
@@ -953,30 +974,9 @@
       ]
     },
     {
-      "rank": 38,
+      "rank": 39,
       "name": "Chirag Ahuja",
       "squad_name": "ApexAI",
-      "total_pts": 0.0,
-      "bonus_stars": 0,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pct": 0.0,
-          "pts": 0.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m2",
-          "pct": 0.0,
-          "pts": 0.0,
-          "bonus_star": false
-        }
-      ]
-    },
-    {
-      "rank": 39,
-      "name": "Alok Mathur",
-      "squad_name": "Leader Squad",
       "total_pts": 0.0,
       "bonus_stars": 0,
       "module_data": [
