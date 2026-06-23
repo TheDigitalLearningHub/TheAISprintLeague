@@ -1,5 +1,5 @@
 {
-  "generated_at": "22 Jun 2026, 04:16 PM IST",
+  "generated_at": "23 Jun 2026, 05:36 PM IST",
   "active_modules": [
     "m1",
     "m2",
@@ -23,7 +23,7 @@
         {
           "module_key": "m2",
           "pts": 50.0,
-          "avg_pct": 88.0
+          "avg_pct": 87.8
         },
         {
           "module_key": "m3",
@@ -63,7 +63,7 @@
       "squad_num": 2,
       "squad_name": "AgentSmiths.ai",
       "squad_leader": "Arya Poddar",
-      "total_pts": 90.0,
+      "total_pts": 105.0,
       "member_count": 5,
       "avg_completion": 80.0,
       "module_data": [
@@ -79,8 +79,8 @@
         },
         {
           "module_key": "m3",
-          "pts": 15.0,
-          "avg_pct": 28.6
+          "pts": 30.0,
+          "avg_pct": 40.0
         }
       ]
     },
@@ -101,7 +101,7 @@
         {
           "module_key": "m2",
           "pts": 25.0,
-          "avg_pct": 41.0
+          "avg_pct": 41.2
         },
         {
           "module_key": "m3",
@@ -127,7 +127,7 @@
         {
           "module_key": "m2",
           "pts": 25.0,
-          "avg_pct": 61.2
+          "avg_pct": 61.8
         },
         {
           "module_key": "m3",
@@ -153,7 +153,7 @@
         {
           "module_key": "m2",
           "pts": 35.0,
-          "avg_pct": 76.8
+          "avg_pct": 76.6
         },
         {
           "module_key": "m3",
@@ -205,7 +205,7 @@
         {
           "module_key": "m2",
           "pts": 20.0,
-          "avg_pct": 42.0
+          "avg_pct": 42.2
         },
         {
           "module_key": "m3",
@@ -272,6 +272,33 @@
     },
     {
       "rank": 3,
+      "name": "Arya Poddar",
+      "squad_name": "AgentSmiths.ai",
+      "total_pts": 200.0,
+      "bonus_stars": 2,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pct": 100.0,
+          "pts": 50.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m2",
+          "pct": 100.0,
+          "pts": 75.0,
+          "bonus_star": true
+        },
+        {
+          "module_key": "m3",
+          "pct": 100.0,
+          "pts": 75.0,
+          "bonus_star": true
+        }
+      ]
+    },
+    {
+      "rank": 4,
       "name": "Bubagra Jamatia",
       "squad_name": "The Attention Heads",
       "total_pts": 200.0,
@@ -298,7 +325,7 @@
       ]
     },
     {
-      "rank": 4,
+      "rank": 5,
       "name": "Satyam Kumar Singh",
       "squad_name": "ApexAI",
       "total_pts": 200.0,
@@ -325,7 +352,7 @@
       ]
     },
     {
-      "rank": 5,
+      "rank": 6,
       "name": "Akanksha Dubey",
       "squad_name": "AgentSmiths.ai",
       "total_pts": 175.0,
@@ -348,33 +375,6 @@
           "pct": 100.0,
           "pts": 75.0,
           "bonus_star": true
-        }
-      ]
-    },
-    {
-      "rank": 6,
-      "name": "Arya Poddar",
-      "squad_name": "AgentSmiths.ai",
-      "total_pts": 125.0,
-      "bonus_stars": 1,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pct": 100.0,
-          "pts": 50.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m2",
-          "pct": 100.0,
-          "pts": 75.0,
-          "bonus_star": true
-        },
-        {
-          "module_key": "m3",
-          "pct": 43.0,
-          "pts": 0.0,
-          "bonus_star": false
         }
       ]
     },
@@ -852,7 +852,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 75.0,
+          "pct": 79.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -933,7 +933,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 31.0,
+          "pct": 30.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -960,7 +960,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 5.0,
+          "pct": 6.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -1014,7 +1014,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 28.0,
+          "pct": 27.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -1041,7 +1041,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 84.0,
+          "pct": 83.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -1095,7 +1095,7 @@
         },
         {
           "module_key": "m2",
-          "pct": 10.0,
+          "pct": 11.0,
           "pts": 0.0,
           "bonus_star": false
         },
@@ -1311,6 +1311,12 @@
       "avg_pct": 100.0
     },
     {
+      "name": "Arya Poddar",
+      "squad_name": "AgentSmiths.ai",
+      "pts": 200,
+      "avg_pct": 100.0
+    },
+    {
       "name": "Bubagra Jamatia",
       "squad_name": "The Attention Heads",
       "pts": 200,
@@ -1320,12 +1326,6 @@
       "name": "Satyam Kumar Singh",
       "squad_name": "ApexAI",
       "pts": 200,
-      "avg_pct": 100.0
-    },
-    {
-      "name": "Akanksha Dubey",
-      "squad_name": "AgentSmiths.ai",
-      "pts": 175,
       "avg_pct": 100.0
     }
   ],
