@@ -1,5 +1,5 @@
 {
-  "generated_at": "29 Jun 2026, 01:16 PM IST",
+  "generated_at": "30 Jun 2026, 11:26 AM IST",
   "active_modules": [
     "m1",
     "m2",
@@ -28,7 +28,7 @@
         {
           "module_key": "m3",
           "pts": 37.5,
-          "avg_pct": 50.7
+          "avg_pct": 55.2
         }
       ]
     },
@@ -106,7 +106,7 @@
         {
           "module_key": "m3",
           "pts": 15.0,
-          "avg_pct": 20.2
+          "avg_pct": 22.2
         }
       ]
     },
@@ -542,6 +542,33 @@
     },
     {
       "rank": 13,
+      "name": "Sameer Gupta",
+      "squad_name": "The Attention Heads",
+      "total_pts": 100.0,
+      "bonus_stars": 0,
+      "module_data": [
+        {
+          "module_key": "m1",
+          "pct": 100.0,
+          "pts": 50.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m2",
+          "pct": 100.0,
+          "pts": 50.0,
+          "bonus_star": false
+        },
+        {
+          "module_key": "m3",
+          "pct": 30.0,
+          "pts": 0.0,
+          "bonus_star": false
+        }
+      ]
+    },
+    {
+      "rank": 14,
       "name": "Gogisetty Tarun",
       "squad_name": "AgentSmiths.ai",
       "total_pts": 100.0,
@@ -568,7 +595,7 @@
       ]
     },
     {
-      "rank": 14,
+      "rank": 15,
       "name": "Ritika Yadav",
       "squad_name": "Ctrl+AI",
       "total_pts": 100.0,
@@ -595,36 +622,9 @@
       ]
     },
     {
-      "rank": 15,
-      "name": "Sameer Gupta",
-      "squad_name": "The Attention Heads",
-      "total_pts": 100.0,
-      "bonus_stars": 0,
-      "module_data": [
-        {
-          "module_key": "m1",
-          "pct": 100.0,
-          "pts": 50.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m2",
-          "pct": 100.0,
-          "pts": 50.0,
-          "bonus_star": false
-        },
-        {
-          "module_key": "m3",
-          "pct": 3.0,
-          "pts": 0.0,
-          "bonus_star": false
-        }
-      ]
-    },
-    {
       "rank": 16,
-      "name": "Sowmya Desai",
-      "squad_name": "AI Avengers",
+      "name": "Aakriti Budhraja",
+      "squad_name": "The Fantastic 5",
       "total_pts": 100.0,
       "bonus_stars": 0,
       "module_data": [
@@ -642,7 +642,7 @@
         },
         {
           "module_key": "m3",
-          "pct": 1.0,
+          "pct": 11.0,
           "pts": 0.0,
           "bonus_star": false
         }
@@ -650,8 +650,8 @@
     },
     {
       "rank": 17,
-      "name": "Aakriti Budhraja",
-      "squad_name": "The Fantastic 5",
+      "name": "Sowmya Desai",
+      "squad_name": "AI Avengers",
       "total_pts": 100.0,
       "bonus_stars": 0,
       "module_data": [
